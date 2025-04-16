@@ -4,6 +4,7 @@ import com.example.petprojectgeneralinfoservice.data.dto.UserCreationRequest;
 import com.example.petprojectgeneralinfoservice.data.dto.UserDto;
 import com.example.petprojectgeneralinfoservice.data.entity.User;
 import com.example.petprojectgeneralinfoservice.data.repository.UserRepository;
+import com.example.petprojectgeneralinfoservice.util.exceptions.UserExistsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserCreationRequest user) {
+        Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
+        if (userOptional.isPresent()) {
+            log.debug("User {} already exists", user.getUsername());
+            throw new UserExistsException("User " + user.getUsername() + " already exists");
+        }
+
         User userEntity = User.builder()
                 .name(user.getName())
                 .username(user.getUsername())
