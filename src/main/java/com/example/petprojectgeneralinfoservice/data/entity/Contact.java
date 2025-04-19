@@ -1,7 +1,9 @@
 package com.example.petprojectgeneralinfoservice.data.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "contacts")
 public class Contact {

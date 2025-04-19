@@ -1,6 +1,7 @@
 package com.example.petprojectgeneralinfoservice.web;
 
 import com.example.petprojectgeneralinfoservice.data.dto.UserCreationRequest;
+import com.example.petprojectgeneralinfoservice.data.dto.UserDetailDto;
 import com.example.petprojectgeneralinfoservice.data.dto.UserDto;
 import com.example.petprojectgeneralinfoservice.service.UserService;
 import com.example.petprojectgeneralinfoservice.util.exceptions.UserExistsException;
@@ -19,6 +20,11 @@ public class UserController {
     @GetMapping("/{username}")
     public ResponseEntity<UserDto> findByUsername(@PathVariable("username") String username) {
         return userService.findByUsername(username).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{username}/details")
+    public ResponseEntity<UserDetailDto> findDetailsByUsername(@PathVariable("username") String username) {
+        return userService.getUserDetails(username).map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping

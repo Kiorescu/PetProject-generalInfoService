@@ -1,7 +1,9 @@
 package com.example.petprojectgeneralinfoservice.data.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "user_language")
 public class UserLanguage {
@@ -12,6 +14,7 @@ public class UserLanguage {
     @Column(name = "level", nullable = false)
     private String level;
 
+    @Getter
     @Embeddable
     public static class UserLanguageId {
 

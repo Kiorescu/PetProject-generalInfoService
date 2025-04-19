@@ -1,6 +1,7 @@
 package com.example.petprojectgeneralinfoservice.service;
 
 import com.example.petprojectgeneralinfoservice.data.dto.UserCreationRequest;
+import com.example.petprojectgeneralinfoservice.data.dto.UserDetailDto;
 import com.example.petprojectgeneralinfoservice.data.dto.UserDto;
 import com.example.petprojectgeneralinfoservice.data.entity.User;
 import com.example.petprojectgeneralinfoservice.data.repository.UserRepository;
@@ -21,6 +22,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserDto> findByUsername(String username) {
         Optional<UserDto> user = userRepository.findByUsername(username).map(UserDto::fromUser);
+
+        if (user.isEmpty()) {
+            log.warn("User {} not found", username);
+        }
+
+        return user;
+    }
+
+    @Override
+    public Optional<UserDetailDto> getUserDetails(String username) {
+        Optional<UserDetailDto> user = userRepository.findByUsername(username).map(UserDetailDto::fromUser);
 
         if (user.isEmpty()) {
             log.warn("User {} not found", username);

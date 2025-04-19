@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +34,13 @@ public class User {
 
     @Column(name = "active", nullable = false)
     private boolean active;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Contact> contacts;
+
+    @OneToMany(mappedBy = "id.user")
+    private Set<UserLanguage> userLanguages;
+
+    @OneToMany(mappedBy = "id.user")
+    private Set<SocialNetworkLink> socialNetworkLinks;
 }

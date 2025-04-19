@@ -2,7 +2,9 @@ package com.example.petprojectgeneralinfoservice.data.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "social_network_link")
 public class SocialNetworkLink {
@@ -13,6 +15,7 @@ public class SocialNetworkLink {
     @Column(name = "link", nullable = false)
     private String link;
 
+    @Getter
     @Embeddable
     public static class SocialNetworkLinkId {
 
