@@ -42,21 +42,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserCreationRequest user) {
-        Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
+    public UserDto createUser(UserCreationRequest userCreationRequest) {
+        Optional<User> userOptional = userRepository.findByUsername(userCreationRequest.getUsername());
         if (userOptional.isPresent()) {
-            log.debug("User {} already exists", user.getUsername());
-            throw new UserExistsException("User " + user.getUsername() + " already exists");
+            log.debug("User {} already exists", userCreationRequest.getUsername());
+            throw new UserExistsException("User " + userCreationRequest.getUsername() + " already exists");
         }
 
         User userEntity = User.builder()
-                .name(user.getName())
-                .username(user.getUsername())
-                .password(user.getPassword())
+                .name(userCreationRequest.getName())
+                .username(userCreationRequest.getUsername())
+                .password(userCreationRequest.getPassword())
                 .build();
 
         UserDto createdUser = UserDto.fromUser(userRepository.save(userEntity));
-        log.info("User {} created", user.getUsername());
+        log.info("User {} created", userCreationRequest.getUsername());
         return createdUser;
     }
 }
